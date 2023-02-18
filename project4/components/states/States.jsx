@@ -11,35 +11,34 @@ class States extends React.Component {
     super(props);
     console.log('window.cs142models.statesModel()', window.cs142models.statesModel());
     this.state = {
-      states: window.cs142models.statesModel(),
-      listItems: [],
-      inputValue: '',
-    }
+      substring: '',
+      filteredStates: window.cs142models.statesModel(),
+    };
+    this.handleChange = this.handleChange.bind(this);
   }
 
-  handleChange = (event) => {
-    this.setState({ inputValue: event.target.value});
-  }
-
-  handleStates = (event) => {
-    for (var i = 0; i < 3; i++) {
-      this.state.listItems[i] = <li key={i}>{this.states[i]}</li>;
-    }
-    var retVal =
-      <div>
-        <ul>
-          {this.state.listItems}
-        </ul>
-      </div>;
-    return retVal;
+  handleChange(event) {
+    const substring = event.target.value.toLowerCase();
+    const filteredStates = window.cs142models.statesModel().filter(state => state.toLowerCase().includes(substring));
+    this.setState({ substring, filteredStates });
   }
 
   render() {
     return (
-      <div>
-        Replace this with the code for CS142 Project 4, Problem 2
+      <div className="States">
+        <h2 className="headline">North American States</h2>
+        <input type="text" className="input-text" placeholder="Enter substring" onChange={this.handleChange} value={this.state.substring} />
+        <p className="search-results">Search results for: {this.state.substring}</p>
+        {this.state.filteredStates.length > 0 ? (
+          <ul>
+            {this.state.filteredStates.sort().map((state, index) => (
+              <li key={index} className="filtered-text">{state}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>No matching states found 😢</p>
+        )}
       </div>
-      {this.handleStates()}
     );
   }
 }

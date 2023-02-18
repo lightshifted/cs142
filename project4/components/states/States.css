@@ -4,3 +4,14 @@ CSS for the CS142 Project 4, Problem 2 States component
 Since CSS uses a global name space for classes we should use names starting with
 cs142-states- here.
 */
+.headline {
+    color: midnightblue;
+}
+
+.filtered-text {
+    font-size: large;
+}
+
+.search-results {
+    font-size: large;
+}
