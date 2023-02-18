@@ -1,6 +1,5 @@
 import React from 'react';
 import './States.css';
-import Header from "../header/Header"
 
 /**
  * Define States, a React component of CS142 Project 4, Problem 2. The model
@@ -28,7 +27,6 @@ class States extends React.Component {
   render() {
     return (
       <div className="States">
-      <Header />
         <h2 className="headline">North American States</h2>
         <input type="text" className="input-text" placeholder="Enter substring" onChange={this.handleChange} value={this.state.substring} />
         <p className="search-results">Search results for: {this.state.substring}</p>
