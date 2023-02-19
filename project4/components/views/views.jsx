@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Example from '../example/Example';
 import Header from '../header/Header';
@@ -15,7 +14,7 @@ class Views extends React.Component {
 
     setView = (value) => {
         this.setState({ view: value });
-    }
+    };
 
     render() {
         return (

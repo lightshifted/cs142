@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import Views from './components/views/Views'
+import Views from './components/views/Views';
 
 ReactDOM.render(
     <Views />,

@@ -104,12 +104,11 @@ class Example extends React.Component {
         <h1 className="headline">CS142 Project 4 React.js Example</h1>
 
         <div className="motto-update">
-          {this.state.inputValue == '' ? (
-            <h3>{this.state.name}'s motto is &ldquo;{this.state.motto}&ldquo;</h3>
+          {this.state.inputValue === '' ? (
+            <h3>{this.state.name}&apos;s motto is &ldquo;{this.state.motto}&ldquo;</h3>
           ) : (
-            <h3>{this.state.name}'s motto is &ldquo;{this.state.inputValue}&ldquo;</h3>
-          )
-          }
+            <h3>{this.state.name}&apos;s motto is &ldquo;{this.state.inputValue}&ldquo;</h3>
+          )}
           <label htmlFor="inId">Change Motto: </label>
           <input type="text" value={this.state.inputValue} onChange={this.handleChangeBound}/>
         </div>
