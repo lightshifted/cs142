@@ -14,7 +14,7 @@
  *   occupation (string) - The occupation of the user.
  *
  * cs142Models.userModel - A function that returns the info of the specified user. Called
- * with an user ID (id), the function returns n object containing:
+ * with an user ID (id), the function returns an object containing:
  *   _id  (string) - The ID of the user.
  *   first_name (string) - The first name of the user.
  *   last_name (string) - The last name of the user.

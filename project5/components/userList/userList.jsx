@@ -15,33 +15,40 @@ import './userList.css';
 class UserList extends React.Component {
   constructor(props) {
     super(props);
+    console.log('cs142models.userListModel', cs142models.userListModel())
+    this.state = {
+      userList: cs142models.userListModel(),
+      selectedUserId: null
+    };
   }
 
+  handleUserClick = (userId) => {
+    this.setState({ selectedUserId: userId });
+  };
+
   render() {
+    const { userList, selectedUserId } = this.state;
     return (
       <div>
-        <Typography variant="body1">
-          This is the user list, which takes up 3/12 of the window.
-          You might choose to use <a href="https://mui.com/components/lists/">Lists</a> and <a href="https://mui.com/components/dividers/">Dividers</a> to
-          display your users like so:
-        </Typography>
-        <List component="nav">
-          <ListItem>
-            <ListItemText primary="Item #1" />
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="Item #2" />
-          </ListItem>
-          <Divider />
-          <ListItem>
-            <ListItemText primary="Item #3" />
-          </ListItem>
-          <Divider />
-        </List>
-        <Typography variant="body1">
-          The model comes in from window.cs142models.userListModel()
-        </Typography>
+      <List component="nav">
+        {userList.map(user => (
+          <div key={user._id}>
+            <ListItem button onClick={() => this.handleUserClick(user._id)}>
+              <ListItemText primary={`${user.first_name} ${user.last_name}`}/>
+            </ListItem>
+            <Divider />
+          </div>
+        ))}
+      </List>
+      <div>
+        {selectedUserId && (
+          <Typography variant="body1">
+            Location: {userList.find(user => user._id === selectedUserId).location}<br/>
+            <br/>Occupation: {userList.find(user => user._id === selectedUserId).occupation}<br/>
+            <br/>Description: {userList.find(user => user._id === selectedUserId).description}
+          </Typography>
+        )}
+      </div>
       </div>
     );
   }
