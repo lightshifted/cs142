@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  AppBar, Toolbar, Typography, Button, MenuItem
+  AppBar, Toolbar, Typography, MenuItem
 } from '@mui/material';
 import './TopBar.css';
 
@@ -14,15 +14,15 @@ class TopBar extends React.Component {
     this.state = {
       path: this.props.match.path,
       userId: window.cs142models.userModel(props.match.params.userId)
-    }
-    console.log('test', this.state.userId)
+    };
+    console.log('test', this.state.userId);
   }
 
   render() {
-    let text = ""
-    const { userId } = this.state
+    let text = "";
+    const { userId } = this.state;
     if (this.state.path === "/users/:userId") {
-      text = `${userId.first_name} ${userId.last_name}`
+      text = `${userId.first_name} ${userId.last_name}`;
     } else if (this.state.path === "/photos/:userId") {
       text = `Photos of ${userId.first_name} ${userId.last_name}`;
     }
