@@ -13,14 +13,14 @@ class UserDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails: cs142models.userModel(props.match.params.userId),
+      userDetails: window.cs142models.userModel(props.match.params.userId),
     };
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.match.params.userId !== this.props.match.params.userId) {
       this.setState({
-        userDetails: cs142models.userModel(this.props.match.params.userId)
+        userDetails: window.cs142models.userModel(this.props.match.params.userId)
       });
     }
   }
@@ -49,7 +49,7 @@ class UserDetail extends React.Component {
                 View Photos
               </Link>
             </Typography>
-        </CardContent>
+          </CardContent>
       </Card>
       </div>
     );

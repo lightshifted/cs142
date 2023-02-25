@@ -1,11 +1,10 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom';
 import {
   Divider,
   List,
   ListItem,
   ListItemText,
-  Typography,
 }
 from '@mui/material';
 import './userList.css';
@@ -17,13 +16,13 @@ class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userList: cs142models.userListModel(),
+      userList: window.cs142models.userListModel(),
     };
   }
 
   handleClick = (userId) => {
     this.props.history.replace(`/users/${userId}`);
-  }
+  };
 
   render() {
     const { userList } = this.state;

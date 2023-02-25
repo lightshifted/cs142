@@ -1,5 +1,4 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import {Typography, Card, CardContent, CardHeader } from '@mui/material';
 import './userPhotos.css';
 
@@ -30,18 +29,14 @@ class UserPhotos extends React.Component {
         <Typography variant="h6">
           Photos of user {userId}:
         </Typography>
-
         {this.state.photos && this.state.photos.map((photo) => (
           <div key={photo._id}>
             <img src={"/images/" + photo.file_name} alt={photo.file_name} />
-
             <Typography variant="subtitle1">
               Creation date/time: {new Date(photo.date_time).toLocaleString()}
             </Typography>
-
             <Card>
               <CardHeader title="Comments" />
-
               <CardContent>
                 {photo.comments && photo.comments.map((comment) => (
                   <div key={comment._id}>
