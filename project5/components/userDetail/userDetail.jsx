@@ -13,9 +13,16 @@ class UserDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails: cs142models.userModel(props.match.params.userId),
+      userDetails: cs142models.userModel(props.match.params.userId)
     };
-    console.log('userDetails Test', this.state.userDetails)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.userId !== this.props.match.params.userId) {
+      this.setState({
+        userDetails: cs142models.userModel(this.props.match.params.userId)
+      });
+    }
   }
 
   render() {
@@ -23,7 +30,7 @@ class UserDetail extends React.Component {
     return (
       <div>
       <Typography variant="h6">
-        User Details:
+        User Details
       </Typography>
       <Typography variant="body1">
         Name: {userDetails.first_name} {userDetails.last_name}

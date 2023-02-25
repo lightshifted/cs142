@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom'
 import {
   Divider,
   List,
@@ -17,39 +18,24 @@ class UserList extends React.Component {
     super(props);
     this.state = {
       userList: cs142models.userListModel(),
-      selectedUserId: null
     };
   }
 
-  handleUserClick = (userId) => {
-    this.setState({ selectedUserId: userId });
+  handleClick = (userId) => {
+    this.props.history.replace(`/users/${userId}`);
   }
 
   render() {
-    const { userList, selectedUserId } = this.state;
+    const { userList } = this.state;
     return (
       <div>
         <List component="nav">
           {userList.map(user => (
             <div key={user._id}>
-              <ListItem button onClick={() => this.handleUserClick(user._id)}>
-                {selectedUserId !== user._id ? (
-                  <ListItemText
-                    primary={
-                      <Typography variant="body1">
-                        {`${user.first_name} ${user.last_name}`}
-                      </Typography>
-                    }
-                  />
-                ) : (
-                  <div>
-                    <Typography variant="body2">{`Location: ${user.location}`}</Typography>
-                    <Typography variant="body2">{`Occupation: ${user.occupation}`}</Typography>
-                    <Typography variant="body2">{`Description: ${user.description}`}</Typography>
-                  </div>
-                )}
-              </ListItem>
-              <Divider />
+                <ListItem button onClick={() => this.handleClick(user._id)}>
+                  <ListItemText primary={`${user.first_name} ${user.last_name}`} />
+                </ListItem>
+                <Divider />
             </div>
           ))}
         </List>
@@ -58,6 +44,4 @@ class UserList extends React.Component {
   }
 }
 
-
-
-export default UserList;
+export default withRouter(UserList);
