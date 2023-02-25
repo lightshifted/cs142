@@ -8,6 +8,7 @@ import {
 }
 from '@mui/material';
 import './userList.css';
+import fetchModel from '../../lib/fetchModelData';
 
 /**
  * Define UserList, a React componment of CS142 project #5
@@ -16,8 +17,23 @@ class UserList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userList: window.cs142models.userListModel(),
+      userList: [],
     };
+  }
+
+  componentDidMount() {
+    this.getList();
+  }
+
+  getList() {
+    fetchModel('/user/list')
+      .then((response) => {
+        let userList = response.data;
+        this.setState({ userList : userList });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
   }
 
   handleClick = (userId) => {

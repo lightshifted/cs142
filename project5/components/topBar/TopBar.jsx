@@ -4,34 +4,70 @@ import {
   AppBar, Toolbar, Typography, MenuItem
 } from '@mui/material';
 import './TopBar.css';
+import fetchModel from '../../lib/fetchModelData';
 
 /**
  * Define TopBar, a React componment of CS142 project #5
  */
 class TopBar extends React.Component {
   constructor(props) {
-    super(props); 
+    super(props);
     this.state = {
       path: this.props.match.path,
-      userId: window.cs142models.userModel(props.match.params.userId)
+      version : '',
     };
-    console.log('test', this.state.userId);
+  }
+
+  componentDidMount() {
+    this.getVersion();
+    this.getUserDetails();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.userId !== this.props.match.params.userId) {
+      this.getUserDetails();
+    }
+  }
+
+  getVersion() {
+    fetchModel('/test/info')
+      .then((response) => {
+        let version = response.data.__v;
+        this.setState({ version: version });
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
+
+  getUserDetails() {
+    let userId = this.props.match.params.userId;
+    fetchModel(`/user/${userId}`)
+      .then((response) => {
+        let userDetails = response.data;
+        this.setState({ userId: userDetails });
+      })
+      .catch((e) => {
+        console.log(e);
+        this.setState({ userId: null });
+      });
   }
 
   render() {
     let text = "";
     const { userId } = this.state;
+
     if (this.state.path === "/users/:userId") {
-      text = `${userId.first_name} ${userId.last_name}`;
+      text = userId ? `${userId.first_name} ${userId.last_name}` : '';
     } else if (this.state.path === "/photos/:userId") {
-      text = `Photos of ${userId.first_name} ${userId.last_name}`;
+      text = userId ? `Photos of ${userId.first_name} ${userId.last_name}` : '';
     }
 
     return (
       <AppBar className="cs142-topbar-appBar" position="absolute">
         <Toolbar>
           <Typography variant="h5" color="inherit" style={{ flexGrow: 1}}>
-              Jason Wheeler
+              Jason Wheeler v.{this.state.version}
           </Typography>
           <Typography variant="body1" color="inherit">
             { text }

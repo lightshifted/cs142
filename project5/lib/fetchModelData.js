@@ -14,13 +14,25 @@ var Promise = require("Promise");
   *
 */
 
+var Promise = require("Promise")
+
+const serverUrl = window.location.origin;
 
 function fetchModel(url) {
   return new Promise(function(resolve, reject) {
+      fetch(serverUrl + url)
+      .then(response => {
+        if (!response.ok)
+          reject({status: response.status, statusText: response.statusText});
+          return response.json();
+      })
+      .then(responseJsonData => {
+        resolve({ data : responseJsonData });
+      })
+      .catch( error => {
+        reject(error);
+      })
       console.log(url);
-      setTimeout(() => reject({status: 501, statusText: "Not Implemented"}),0);
-      // On Success return:
-      // resolve({data: getResponseObject});
   });
 }
 

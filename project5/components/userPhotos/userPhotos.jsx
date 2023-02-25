@@ -1,6 +1,7 @@
 import React from 'react';
 import {Typography, Card, CardContent, CardHeader } from '@mui/material';
 import './userPhotos.css';
+import fetchModel from '../../lib/fetchModelData';
 
 
 /**
@@ -10,16 +11,25 @@ class UserPhotos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      photos: []
+      photos: [],
+      userId: this.props.match.params.userId
     };
   }
 
   componentDidMount() {
-    const userId = this.props.match.params.userId;
-    const photos = window.cs142models.photoOfUserModel(userId);
-
-    this.setState({ photos: photos });
+    this.getPhotos();
     }
+
+  getPhotos() {
+    fetchModel(`/photosOfUser/${this.state.userId}`)
+      .then((response) => {
+        let photos = response.data;
+        this.setState({ photos: photos});
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  }
 
   render() {
     const userId = this.props.match.params.userId;

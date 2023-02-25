@@ -4,6 +4,7 @@ import {
   Typography, Card, CardContent, CardHeader
 } from '@mui/material';
 import './userDetail.css';
+import fetchModel from '../../lib/fetchModelData';
 
 /**
  * Define UserDetail, a React componment of CS142 project #5
@@ -12,8 +13,22 @@ class UserDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userDetails: window.cs142models.userModel(props.match.params.userId),
+      userDetails: {},
     };
+  }
+
+  componentDidMount() {
+    let userId = this.props.match.params.userId;
+    // Async call to server
+    fetchModel(`/user/${userId}`)
+      .then((response) => {
+        let userDetails = response.data;
+        this.setState({ userDetails: userDetails });
+      })
+      .catch((e) => {
+        console.log(e);
+        this.setState({ userDetails: null });
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -23,6 +38,7 @@ class UserDetail extends React.Component {
       });
     }
   }
+
 
   render() {
     const { userDetails } = this.state;
