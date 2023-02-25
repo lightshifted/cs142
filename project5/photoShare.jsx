@@ -25,7 +25,15 @@ class PhotoShare extends React.Component {
       <div>
       <Grid container spacing={8}>
         <Grid item xs={12}>
-          <TopBar/>
+        <Route exact path="/"
+                render ={ props => <TopBar {...props} /> }
+              />
+        <Route exact path="/users/:userId"
+                render ={ props => <TopBar {...props} /> }
+              />
+        <Route exact path="/photos/:userId"
+                render ={ props => <TopBar {...props} /> }
+              />
         </Grid>
         <div className="cs142-main-topbar-buffer"/>
         <Grid item sm={3}>

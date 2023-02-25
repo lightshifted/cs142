@@ -5,7 +5,6 @@ import {
 } from '@mui/material';
 import './userDetail.css';
 
-
 /**
  * Define UserDetail, a React componment of CS142 project #5
  */

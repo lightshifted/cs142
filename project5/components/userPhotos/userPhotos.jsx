@@ -26,9 +26,6 @@ class UserPhotos extends React.Component {
 
     return (
       <div>
-        <Typography variant="h6">
-          Photos of user {userId}:
-        </Typography>
         {this.state.photos && this.state.photos.map((photo) => (
           <div key={photo._id}>
             <img src={"/images/" + photo.file_name} alt={photo.file_name} />
