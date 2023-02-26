@@ -17,7 +17,17 @@ class UserDetail extends React.Component {
     };
   }
 
-  componentDidMount() {
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.userId !== this.props.match.params.userId) {
+      this.fetchUserDetails();
+    }
+  }
+
+    componentDidMount() {
+      this.fetchUserDetails();
+  }
+
+  fetchUserDetails = () => {
     let userId = this.props.match.params.userId;
     // Async call to server
     fetchModel(`/user/${userId}`)
@@ -29,16 +39,7 @@ class UserDetail extends React.Component {
         console.log(e);
         this.setState({ userDetails: null });
       });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.match.params.userId !== this.props.match.params.userId) {
-      this.setState({
-        userDetails: window.cs142models.userModel(this.props.match.params.userId)
-      });
-    }
-  }
-
+  };
 
   render() {
     const { userDetails } = this.state;

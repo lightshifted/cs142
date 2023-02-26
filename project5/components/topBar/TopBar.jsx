@@ -1,8 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  AppBar, Toolbar, Typography, MenuItem
+  AppBar, Toolbar, Typography, MenuItem, FormControlLabel, Checkbox
 } from '@mui/material';
+import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
+import CheckBoxIcon from '@material-ui/icons/CheckBox';
 import './TopBar.css';
 import fetchModel from '../../lib/fetchModelData';
 
@@ -15,6 +17,7 @@ class TopBar extends React.Component {
     this.state = {
       path: this.props.match.path,
       version : '',
+      advancedFeaturesEnabled: false,
     };
   }
 
@@ -53,6 +56,10 @@ class TopBar extends React.Component {
       });
   }
 
+  handleCheckBoxChange = (event) => {
+    this.setState({ advancedFeaturesEnabled: event.target.checked });
+  };
+
   render() {
     let text = "";
     const { userId } = this.state;
@@ -69,9 +76,24 @@ class TopBar extends React.Component {
           <Typography variant="h5" color="inherit" style={{ flexGrow: 1}}>
               Jason Wheeler v.{this.state.version}
           </Typography>
+          <FormControlLabel
+            control={
+              <Checkbox 
+                checked={this.state.advancedFeaturesEnabled}
+                onChange={this.handleCheckBoxChange}
+                name="advancedFeaturesEnabled"
+                color="primary"
+                icon={<CheckBoxOutlineBlankIcon style={{color: 'black'}}/>}
+                checkedIcon={<CheckBoxIcon style={{color: 'white'}} />}
+                style={{ color: 'black'}}
+              />
+            }
+            label="Enable Advanced Features"
+          />
           <Typography variant="body1" color="inherit">
             { text }
           </Typography>
+
           <MenuItem component={Link} to="/">Home</MenuItem>
         </Toolbar>
       </AppBar>

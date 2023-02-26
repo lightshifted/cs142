@@ -12,7 +12,8 @@ class UserPhotos extends React.Component {
     super(props);
     this.state = {
       photos: [],
-      userId: this.props.match.params.userId
+      userId: this.props.match.params.userId,
+      currentIndex: 0,
     };
   }
 
@@ -31,9 +32,20 @@ class UserPhotos extends React.Component {
       });
   }
 
+  handlePrev = () => {
+    this.setState(prevState => ({
+      currentIndex: prevState.currentIndex - 1
+    }));
+  };
+
+  handleNext = () => {
+    this.setState(prevState => ({
+      currentIndex: prevState.currentIndex + 1
+    }));
+  };
+
   render() {
     const userId = this.props.match.params.userId;
-
     return (
       <div>
         {this.state.photos && this.state.photos.map((photo) => (
